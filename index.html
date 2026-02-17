@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ARCHIVE_GATE</title>
+<title>ARCHIVE_CONTINUATION.EXE</title>
 
 <style>
 body{
@@ -10,27 +10,29 @@ body{
     background:black;
     color:#00ff88;
     font-family:Courier New, monospace;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    flex-direction:column;
-    text-align:center;
+}
+#terminal{
+    height:80vh;
+    overflow-y:auto;
+    padding:20px;
+    border-bottom:1px solid #00ff88;
+}
+#inputBar{
+    padding:10px;
 }
 input{
+    width:80%;
     background:black;
     border:1px solid #00ff88;
     color:#00ff88;
-    padding:8px;
     font-family:inherit;
-    margin-top:10px;
+    padding:5px;
 }
 button{
     background:black;
     border:1px solid #00ff88;
     color:#00ff88;
-    padding:8px 15px;
-    margin-top:10px;
+    padding:5px 10px;
     cursor:pointer;
 }
 a{
@@ -46,7 +48,7 @@ a:hover{
     color:black;
 }
 .glitch{
-    animation:glitch .15s infinite;
+    animation:glitch 0.15s infinite;
 }
 @keyframes glitch{
     0%{transform:translate(0,0);}
@@ -60,55 +62,117 @@ a:hover{
 
 <body>
 
-<div id="gate">
-    <h2>ARCHIVE ACCESS REQUIRED</h2>
-    <div>Enter passcode to continue</div>
+<div id="terminal"></div>
 
-    <input id="passInput" type="password" placeholder="Passcode">
-    <br>
-    <button onclick="checkPass()">ENTER</button>
-
-    <div id="message" style="margin-top:15px;"></div>
+<div id="inputBar">
+    <input id="cmdInput" placeholder="Type command...">
+    <button onclick="runCommand()">ENTER</button>
 </div>
 
 <script>
+const terminal = document.getElementById("terminal");
+const input = document.getElementById("cmdInput");
 
-function checkPass(){
-    const pass = document.getElementById("passInput").value.toLowerCase();
-    const msg = document.getElementById("message");
+function log(text){
+    terminal.innerHTML += "> " + text + "<br>";
+    terminal.scrollTop = terminal.scrollHeight;
+}
 
-    if(pass === "neverlogout"){   // 🔐 change password here if you want
-        unlockScreen();
-    } else {
-        msg.innerText = "ACCESS DENIED.";
-        document.body.classList.add("glitch");
-        setTimeout(()=>document.body.classList.remove("glitch"),500);
+log("ARCHIVE SESSION RESUMED.");
+log("Signal unstable...");
+log("Recovered fragment: TXlvdSBuZXZlciBsb2dnZWQgb3V0");
+log("Corrupted echo: tuogolreveen");
+log("Type 'help' for commands.");
+
+function runCommand(){
+    let cmd = input.value.toLowerCase().trim();
+    input.value = "";
+    process(cmd);
+}
+
+function process(cmd){
+
+    if(cmd === "help"){
+        log("Commands: decode fragment echo status enterpass");
+    }
+
+    else if(cmd === "decode"){
+        log("Decoding fragment...");
+        setTimeout(()=>{
+            log(atob("TXlvdSBuZXZlciBsb2dnZWQgb3V0"));
+        },1000);
+    }
+
+    else if(cmd === "fragment"){
+        log("Fragment unstable. Try decoding.");
+    }
+
+    else if(cmd === "echo"){
+        log("Echo buffer: tuogolreveen");
+    }
+
+    else if(cmd === "status"){
+        log("Session active.");
+        log("User: child_1999");
+        log("Status: STILL CONNECTED");
+    }
+
+    else if(cmd === "enterpass"){
+        let pass = prompt("Enter passcode:");
+        checkPass(pass);
+    }
+
+    else{
+        log("Unknown command.");
     }
 }
 
-function unlockScreen(){
+function checkPass(pass){
+    if(!pass) return;
+
+    if(pass.toLowerCase() === "neverlogout"){
+        unlockSequence();
+    } else {
+        log("Access denied.");
+        document.body.classList.add("glitch");
+        setTimeout(()=>document.body.classList.remove("glitch"),1000);
+    }
+}
+
+function unlockSequence(){
 
     document.body.innerHTML = "";
 
     let reveal = document.createElement("div");
+    reveal.style.position = "fixed";
+    reveal.style.top = "50%";
+    reveal.style.left = "50%";
+    reveal.style.transform = "translate(-50%, -50%)";
+    reveal.style.color = "lime";
+    reveal.style.fontSize = "22px";
+    reveal.style.textAlign = "center";
+    reveal.style.maxWidth = "800px";
 
     reveal.innerHTML =
-    "<h2>ARCHIVE AUTHORITY VERIFIED</h2><br>" +
-    "Host: tenqegaming<br>" +
-    "Status: CONTAINER ONLY<br><br>" +
-    "The Archive instantiated the host.<br>" +
+    "ARCHIVE AUTHORITY VERIFIED.<br><br>" +
+
+    "Repository Host: tenqegaming<br>" +
+    "Host Status: CONTAINER ONLY<br><br>" +
+
+    "The Archive is not owned.<br>" +
+    "The Archive instantiated the host.<br><br>" +
+
+    "The host is temporary.<br>" +
     "The Archive persists beyond infrastructure.<br><br>" +
-    "<a href='/archive/'>ENTER ARCHIVE</a>";
+
+    "<a href='https://tenqegaming-pixel.github.io/archive/'>ENTER PRIMARY ARCHIVE</a>";
 
     document.body.appendChild(reveal);
 }
 
-document.addEventListener("keydown", function(e){
-    if(e.key === "Enter"){
-        checkPass();
-    }
+document.addEventListener("keydown", e=>{
+    if(e.key === "Enter") runCommand();
 });
-
 </script>
 
 </body>
