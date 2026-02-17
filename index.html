@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EXIT_PROTOCOL</title>
+<style>
+body{
+    background:black;
+    color:#00ff88;
+    font-family:Courier New, monospace;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+    overflow:hidden;
+}
+.fade{
+    animation:fade 4s infinite alternate;
+}
+@keyframes fade{
+    0%{opacity:1;}
+    100%{opacity:.5;}
+}
+.glitch{
+    animation:glitch .15s infinite;
+}
+@keyframes glitch{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(-3px,2px);}
+    100%{transform:translate(0,0);}
+}
+</style>
+</head>
+
+<body>
+
+<div id="content" class="fade">
+EXIT PROTOCOL INITIATED<br><br>
+
+Disconnecting session...<br>
+Severing Archive link...<br><br>
+
+ERROR.<br><br>
+
+The Archive is not a location.<br>
+It is a state.<br><br>
+
+You cannot exit what persists inside observation.<br><br>
+
+To escape, the session must close itself.<br><br>
+
+Encoded Key:<br>
+Q0xPU0VfVEhFX1dJTkRPVw==<br><br>
+
+The Archive waits.
+</div>
+
+<!-- hint: base64 decode -->
+
+<script>
+
+// Title change
+setTimeout(()=>{
+    document.title="SESSION_PERSISTING";
+},5000);
+
+// Subtle glitch before redirect
+setTimeout(()=>{
+    document.body.classList.add("glitch");
+},8000);
+
+// Fade out effect
+setTimeout(()=>{
+    document.body.style.transition="opacity 2s";
+    document.body.style.opacity="0";
+},10000);
+
+// Redirect to next layer
+setTimeout(()=>{
+    window.location.href="https://tenqegaming-pixel.github.io/archive-made/";
+},12000);
+
+</script>
+
+</body>
+</html>
