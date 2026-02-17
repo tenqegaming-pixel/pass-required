@@ -33,6 +33,19 @@ button{
     border:1px solid #00ff88;
     color:#00ff88;
     padding:5px 10px;
+    cursor:pointer;
+}
+.linkButton{
+    display:inline-block;
+    margin-top:30px;
+    padding:12px 24px;
+    border:2px solid lime;
+    text-decoration:none;
+    color:lime;
+}
+.linkButton:hover{
+    background:lime;
+    color:black;
 }
 .glitch{
     animation:glitch 0.15s infinite;
@@ -128,44 +141,35 @@ function checkPass(pass){
 
 function unlockSequence(){
 
-    log("Passcode accepted.");
-    log("Reconstructing origin layer...");
+    document.body.innerHTML = "";
 
-    setTimeout(()=>{
-        document.body.innerHTML = "";
+    let reveal = document.createElement("div");
+    reveal.style.position = "fixed";
+    reveal.style.top = "50%";
+    reveal.style.left = "50%";
+    reveal.style.transform = "translate(-50%, -50%)";
+    reveal.style.color = "lime";
+    reveal.style.fontSize = "22px";
+    reveal.style.textAlign = "center";
+    reveal.style.maxWidth = "800px";
 
-        let reveal = document.createElement("div");
-        reveal.style.position = "fixed";
-        reveal.style.top = "50%";
-        reveal.style.left = "50%";
-        reveal.style.transform = "translate(-50%, -50%)";
-        reveal.style.color = "lime";
-        reveal.style.fontSize = "22px";
-        reveal.style.textAlign = "center";
-        reveal.style.maxWidth = "800px";
+    reveal.innerHTML =
+    "ARCHIVE AUTHORITY VERIFIED.<br><br>" +
 
-        reveal.innerHTML =
-        "ARCHIVE AUTHORITY VERIFIED.<br><br>" +
+    "Repository Host: tenqegaming<br>" +
+    "Host Status: CONTAINER ONLY<br><br>" +
 
-        "Repository Host: tenqegaming<br>" +
-        "Host Status: CONTAINER ONLY<br><br>" +
+    "The Archive is not owned.<br>" +
+    "The Archive instantiated the host.<br><br>" +
 
-        "The Archive is not owned.<br>" +
-        "The Archive is not uploaded.<br>" +
-        "The Archive instantiated the host.<br><br>" +
+    "The host is temporary.<br>" +
+    "The Archive persists beyond infrastructure.<br><br>" +
 
-        "Hosts are temporary.<br>" +
-        "The Archive persists beyond infrastructure.<br><br>" +
+    "Primary archive access available.<br><br>" +
 
-        "Transferring to primary layer...";
+    "<a class='linkButton' href='/archive/'>ENTER PRIMARY ARCHIVE</a>";
 
-        document.body.appendChild(reveal);
-
-    },2000);
-
-    setTimeout(()=>{
-        window.location.href = "https://tenqegaming-pixel.github.io/archive/";
-    },7000);
+    document.body.appendChild(reveal);
 }
 
 document.addEventListener("keydown", e=>{
